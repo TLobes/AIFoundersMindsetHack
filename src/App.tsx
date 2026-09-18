@@ -247,6 +247,7 @@ export default function App() {
         </div>
         <p className="muted">{lang === 'ja' ? '開発パートナー：Devin。音声：ElevenLabs。会話はルールベース。' : 'Development partner: Devin. Voice: ElevenLabs. Rule-based conversations.'}</p>
         <div className="build-evidence"><a href="https://app.devin.ai/sessions/ab77dc21b829467bbb93ea520a873fae" target="_blank" rel="noreferrer">Devin session ↗</a><a href="https://github.com/TLobes/AIFoundersMindsetHack/pull/1" target="_blank" rel="noreferrer">Implementation PR ↗</a><a href="https://github.com/TLobes/AIFoundersMindsetHack/blob/devin/otter-coach/docs/BUILD-PROVENANCE.md" target="_blank" rel="noreferrer">Full build record ↗</a></div>
+        <div className="powered-by"><span>Powered by</span><a href="https://devin.ai" target="_blank" rel="noreferrer" aria-label="Devin"><img className="devin-brand" src="/brands/devin.svg" alt="" /><strong>Devin</strong></a><a href="https://elevenlabs.io" target="_blank" rel="noreferrer"><img className="elevenlabs-brand" src="/brands/elevenlabs.svg" alt="ElevenLabs" /></a></div>
       </section>}
       {langNote && phase !== 'idle' && <p className="note">{t(lang, 'langLocked')}</p>}
 

@@ -175,3 +175,10 @@ button:focus-visible { outline: 3px solid #fff; outline-offset: 4px; }
 .disclaimer, .ev q, .typing, .otter-fallback { font-style: normal; }
 
 .button-icon { display: inline-block; vertical-align: -3px; margin-right: 8px; flex-shrink: 0; }
+
+.powered-by { display: flex; justify-content: flex-end; align-items: center; gap: 28px; flex-wrap: wrap; margin-top: 24px; padding-top: 24px; border-top: 1px solid #343434; }
+.powered-by > span { color: var(--cocoa-soft); font-size: .8rem; }
+.powered-by a { display: inline-flex; align-items: center; gap: 7px; color: white; text-decoration: none; padding: 16px 0; }
+.devin-brand { width: 32px; height: 32px; filter: brightness(0) invert(1); }
+.powered-by strong { font-size: 1.2rem; font-weight: 600; }
+.elevenlabs-brand { width: 120px; height: auto; }
