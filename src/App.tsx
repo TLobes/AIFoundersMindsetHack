@@ -12,7 +12,7 @@ import {
   type Language,
 } from '../shared/types';
 import { t } from './i18n';
-import { canRecognize, canSpeak, speak, startRecognition, stopSpeaking, type RecognitionHandle } from './speech';
+import { canRecognize, canSpeak, speak, speakElevenLabs, startRecognition, stopSpeaking, type RecognitionHandle } from './speech';
 
 type Phase = 'idle' | 'active' | 'review';
 
@@ -55,16 +55,25 @@ export default function App() {
     transcriptRef.current?.scrollTo({ top: transcriptRef.current.scrollHeight, behavior: 'smooth' });
   }, [messages, phase]);
 
+  const elevenVoice = !!config && config !== 'offline' && config.speech;
+  const voiceAvailable = elevenVoice || canSpeak;
+
   const say = useCallback(
     (text: string) => {
       if (talkTimer.current) clearTimeout(talkTimer.current);
       setVisualTalking(true);
       talkTimer.current = setTimeout(() => setVisualTalking(false), Math.min(7000, Math.max(1800, text.length * 32)));
-      if (!voiceOn || !canSpeak) return;
+      if (!voiceOn || !voiceAvailable) return;
+      if (elevenVoice) {
+        void speakElevenLabs(text, () => setSpeaking(true), () => setSpeaking(false), () => {
+          setError(lang === 'ja' ? '音声を再生できませんでした。テキストで続けられます。' : 'Voice playback failed. You can continue with text.');
+        });
+        return;
+      }
       setSpeaking(true);
       speak(text, lang, () => setSpeaking(false));
     },
-    [voiceOn, lang],
+    [voiceOn, lang, elevenVoice, voiceAvailable],
   );
 
   useEffect(() => () => {
@@ -229,17 +238,17 @@ export default function App() {
                 setVoiceOn(!voiceOn);
                 setSpeaking(false);
               }}
-              disabled={!canSpeak}
-              title={canSpeak ? undefined : t(lang, 'speakerUnavailable')}
+              disabled={!voiceAvailable}
+              title={voiceAvailable ? undefined : t(lang, 'speakerUnavailable')}
               aria-pressed={voiceOn}
             >
-              {voiceOn ? t(lang, 'speakerOn') : t(lang, 'speakerOff')}
+              {voiceOn ? t(lang, 'speakerOn') : t(lang, 'speakerOff')} {elevenVoice ? '· ElevenLabs' : ''}
             </button>
             <button type="button" className="chip" onClick={() => setShowPolicy(!showPolicy)} aria-expanded={showPolicy}>
               {showPolicy ? t(lang, 'hidePolicy') : t(lang, 'policySheet')}
             </button>
           </div>
-          {!canSpeak && <p className="hint">{t(lang, 'speakerUnavailable')}</p>}
+          {!voiceAvailable && <p className="hint">{t(lang, 'speakerUnavailable')}</p>}
 
           {showPolicy && (
             <div className="policy card" data-testid="policy-sheet">

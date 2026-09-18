@@ -77,6 +77,7 @@ export function createApp(opts: AppOptions = {}) {
     try {
       const r = await f(`https://api.elevenlabs.io/v1/text-to-speech/${encodeURIComponent(voiceId)}`, {
         method: 'POST',
+        signal: AbortSignal.timeout(20000),
         headers: { 'xi-api-key': elevenLabsKey, 'content-type': 'application/json', accept: 'audio/mpeg' },
         body: JSON.stringify({ text, model_id: 'eleven_multilingual_v2' }),
       });

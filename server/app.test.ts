@@ -136,3 +136,29 @@ describe('gemini adapter (mocked transport, no live calls)', () => {
     expect(() => parseGeminiFeedback('{"criteria":[]}', 'en', [opening, trainee('a')])).toThrow(/5 criteria/);
   });
 });
+
+describe('ElevenLabs speech proxy', () => {
+  it('returns audio and keeps the key server-side', async () => {
+    let sentKey = '';
+    const fetchImpl = (async (_url: unknown, options: RequestInit) => {
+      sentKey = (options.headers as Record<string, string>)['xi-api-key'];
+      return new Response(new Uint8Array([73, 68, 51]), { headers: { 'content-type': 'audio/mpeg' } });
+    }) as typeof fetch;
+    const app = createApp({ gemini: null, elevenLabsKey: 'test-secret', fetchImpl });
+    const audio = await request(app).post('/api/speech').send({ text: 'Hello from Otter Coach' });
+    expect(audio.status).toBe(200);
+    expect(audio.headers['content-type']).toContain('audio/mpeg');
+    expect(sentKey).toBe('test-secret');
+    const config = await request(app).get('/api/config');
+    expect(config.body.speech).toBe(true);
+    expect(JSON.stringify(config.body)).not.toContain('test-secret');
+  });
+
+  it('rejects oversized text before calling the paid provider', async () => {
+    let called = false;
+    const fetchImpl = (async () => { called = true; return new Response(); }) as typeof fetch;
+    const app = createApp({ gemini: null, elevenLabsKey: 'test-secret', fetchImpl });
+    expect((await request(app).post('/api/speech').send({ text: 'x'.repeat(601) })).status).toBe(400);
+    expect(called).toBe(false);
+  });
+});

@@ -15,8 +15,44 @@ export function speak(text: string, lang: Language, onEnd?: () => void): () => v
   return () => window.speechSynthesis.cancel();
 }
 
+let remoteAudio: HTMLAudioElement | null = null;
+let remoteUrl: string | null = null;
+let speechRequest: AbortController | null = null;
+
 export function stopSpeaking(): void {
+  speechRequest?.abort();
+  speechRequest = null;
+  remoteAudio?.pause();
+  remoteAudio = null;
+  if (remoteUrl) URL.revokeObjectURL(remoteUrl);
+  remoteUrl = null;
   if (canSpeak) window.speechSynthesis.cancel();
+}
+
+/** Audio stays behind our server proxy; credentials never enter the browser. */
+export async function speakElevenLabs(text: string, onStart: () => void, onEnd: () => void, onError: () => void): Promise<void> {
+  stopSpeaking();
+  const controller = new AbortController();
+  speechRequest = controller;
+  try {
+    const response = await fetch('/api/speech', {
+      method: 'POST', headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ text }), signal: controller.signal,
+    });
+    if (!response.ok) throw new Error('Speech unavailable');
+    const blob = await response.blob();
+    if (controller.signal.aborted) return;
+    remoteUrl = URL.createObjectURL(blob);
+    const audio = new Audio(remoteUrl);
+    remoteAudio = audio;
+    const finish = () => { if (speechRequest === controller) { stopSpeaking(); onEnd(); } };
+    audio.onended = finish;
+    audio.onerror = () => { finish(); onError(); };
+    await audio.play();
+    if (!controller.signal.aborted) onStart();
+  } catch {
+    if (!controller.signal.aborted) { stopSpeaking(); onEnd(); onError(); }
+  }
 }
 
 interface RecognitionLike {

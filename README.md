@@ -15,7 +15,7 @@ npm test           # vitest: rule engine, scorer, API validation
 npm run build && npm start   # production: Express serves dist/client on :3001
 ```
 
-Without `GEMINI_API_KEY` the app runs in **Guided demo** mode: the customer (Alex) and the feedback are deterministic rules, clearly labelled as not AI. Setting `GEMINI_API_KEY` (and optionally `GEMINI_MODEL`) on the server enables the optional Gemini adapter; `ELEVENLABS_API_KEY` enables an optional backend speech endpoint (not wired into the UI voice toggle). Browser `speechSynthesis` / `SpeechRecognition` need no keys. See `.env.example` for names; this app reads process environment variables and does not automatically load a `.env` file. The scenario and policies are fictional training material.
+Without `GEMINI_API_KEY` the app runs in **Guided demo** mode: the customer (Alex) and the feedback are deterministic rules, clearly labelled as not AI. Setting `GEMINI_API_KEY` (and optionally `GEMINI_MODEL`) on the server enables the optional Gemini adapter; `ELEVENLABS_API_KEY` enables ElevenLabs playback through the UI voice toggle. Browser `speechSynthesis` / `SpeechRecognition` need no keys. See `.env.example` for names; the server loads an ignored local `.env` file on startup (Node 22+ required). The scenario and policies are fictional training material.
 
 ## Demo and engineering evidence
 

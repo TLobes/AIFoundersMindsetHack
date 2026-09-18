@@ -42,3 +42,5 @@ Codex's subsequent changes are the user-requested black projector theme, larger 
 Local production demo: `http://localhost:3002` (started with `PORT=3002 npm start`). Development preview remains `http://localhost:5173`. Both need the local server process running. No public deployment was performed.
 
 Codex added the requested animated mascot as an SVG UI component around the original image: periodic eyelid overlays, sparkling highlights, a speaking mouth, and interaction-triggered rocking. Speech animation also plays briefly on muted text replies. Reduced-motion preferences disable these animations. Browser inspection confirmed blink, mouth, and reaction animations activate.
+
+ElevenLabs follow-up: Codex wired server-proxied audio to the voice toggle, with cancellation, error handling, playback-driven mouth animation, a provider timeout, and local `.env` loading. All 32 tests pass, including mocked speech transport and oversized-input rejection. Live ElevenLabs playback awaits the user's API key. Earlier notes about the unwired voice endpoint describe the previous checkpoint.
