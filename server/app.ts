@@ -54,7 +54,7 @@ export function createApp(opts: AppOptions = {}) {
   });
 
   app.post('/api/feedback', async (req, res) => {
-    const v = validateChatRequest(req.body);
+    const v = validateChatRequest(req.body, { allowTrailingCustomer: true });
     if (!v.ok) return res.status(400).json({ error: v.error });
     const { language, messages } = v.value;
     const turns = messages.filter((m) => m.role === 'trainee').length;

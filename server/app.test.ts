@@ -72,12 +72,30 @@ describe('guided flow end-to-end', () => {
       expect(typeof res.body.reply).toBe('string');
       messages.push({ role: 'customer', content: res.body.reply });
     }
-    const fb = await request(guided).post('/api/feedback').send({ language: 'en', messages: messages.slice(0, -1) });
+    // The UI sends the full transcript, which ends with the customer's last reply.
+    expect(messages[messages.length - 1].role).toBe('customer');
+    const fb = await request(guided).post('/api/feedback').send({ language: 'en', messages });
     expect(fb.status).toBe(200);
     expect(fb.body.mode).toBe('guided');
     expect(fb.body.criteria).toHaveLength(5);
     expect(fb.body.total).toBe(fb.body.criteria.reduce((s: number, c: { earned: number }) => s + c.earned, 0));
     expect(fb.body.total).toBeGreaterThanOrEqual(80);
+  });
+
+  it('accepts feedback requests whether or not a customer reply trails, and trims whitespace', async () => {
+    const messages = [opening, trainee('  sorry  '), opening, trainee('pending?'), opening, trainee(' to summarize, does that work? \n')];
+    const withTrailing = await request(guided).post('/api/feedback').send({ language: 'en', messages: [...messages, opening] });
+    const withoutTrailing = await request(guided).post('/api/feedback').send({ language: 'en', messages });
+    expect(withTrailing.status).toBe(200);
+    expect(withoutTrailing.status).toBe(200);
+    expect(withTrailing.body).toEqual(withoutTrailing.body);
+    const p5 = withTrailing.body.criteria.find((c: { id: string }) => c.id === 'P5');
+    expect(p5.evidence).toBe('to summarize, does that work?');
+  });
+
+  it('still rejects chat requests whose last message is not from the trainee', async () => {
+    const res = await request(guided).post('/api/chat').send({ language: 'en', messages: [opening, trainee('hi'), opening] });
+    expect(res.status).toBe(400);
   });
 
   it('requires 3 trainee turns before feedback', async () => {

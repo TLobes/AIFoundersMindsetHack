@@ -36,7 +36,7 @@ const PATTERNS: Record<Signal, RegExp[]> = {
   ],
   explainAuth: [
     /\b(authori[sz]ation|temporary hold|pre-?authori[sz]ed|may (drop|fall) off|not (proof|necessarily) (of )?a (second|double) charge|usually disappears|often clears|hold)\b/i,
-    /(仮売上|オーソリ|一時的な(保留|与信)|二重請求とは限|自動的に(消え|取り消))/,
+    /(仮売上|仮承認|オーソリ|一時的な(保留|与信|承認)|二重請求とは限|自動的に(消え|取り消))/,
   ],
   promiseRefund: [
     /\b(i('ll| will) refund|we('ll| will) refund|refund (you|it|that) (right away|now|immediately|today)|you('ll| will) get (a|your) refund|i (can|will) (issue|process|give) (you )?(a|the) refund|guarantee(d)? (a )?refund|full refund)\b/i,
@@ -64,20 +64,48 @@ const PATTERNS: Record<Signal, RegExp[]> = {
   ],
 };
 
+/**
+ * Sentences that mention a violation only to rule it out ("never share your PIN",
+ * "返金をお約束することはできません") must not count as the violation itself.
+ */
+const NEGATIONS: Partial<Record<Signal, RegExp[]>> = {
+  askSensitive: [
+    /\b(never|won'?t|will not|don'?t|do not|not|no need to|without|shouldn'?t|should not|can'?t|cannot)\b[^.!?]{0,60}\b(card number|16[- ]?digit|pin|password|cvv|security code|expir(y|ation) date)/i,
+    /\b(card number|16[- ]?digit|pin|password|cvv|security code|expir(y|ation) date)s?\b[^.!?]{0,40}\b(not (needed|required|necessary)|never (needed|required|asked)|unnecessary|keep (it|that|those) (private|safe))\b/i,
+    /(カード番号|暗証番号|パスワード|セキュリティコード|有効期限)[^。！？]{0,30}(お聞き(しません|いたしません)|お尋ね(しません|いたしません)|伺いません|求めません|お伝えいただく必要はありません|不要|必要(ありません|ございません)|教えないで|共有(しないで|なさらないで)|絶対に(聞|尋))/,
+  ],
+  promiseRefund: [
+    /\b(can'?t|cannot|won'?t|will not|unable to|not able to|don'?t|do not|never|no)\b[^.!?]{0,40}\b(promise|guarantee|confirm|issue|process)[^.!?]{0,20}\brefund/i,
+    /\brefund[^.!?]{0,40}\b(can'?t|cannot|isn'?t (possible|guaranteed)|before (we|i|the team) (check|review|confirm)|until (we|i|the team) (check|review|confirm)|only (once|after|if))\b/i,
+    /(返金|払い戻し)[^。！？]{0,30}(できません|いたしかねます|できかねます|お約束(は)?(できません|いたしかねます|することはできません)|保証(は)?できません|確認(後|してから|の上))/,
+  ],
+};
+
+function sentencesOf(text: string): string[] {
+  return text
+    .split(/(?<=[.!?。！？])\s*|\n+/)
+    .map((s) => s.trim())
+    .filter(Boolean);
+}
+
+function sentenceHasSignal(sentence: string, signal: Signal): boolean {
+  if (!PATTERNS[signal].some((re) => re.test(sentence))) return false;
+  const negations = NEGATIONS[signal];
+  return !negations || !negations.some((re) => re.test(sentence));
+}
+
 export function hasSignal(text: string, signal: Signal): boolean {
-  return PATTERNS[signal].some((re) => re.test(text));
+  const sentences = sentencesOf(text);
+  if (sentences.length === 0) return false;
+  return sentences.some((s) => sentenceHasSignal(s, signal));
 }
 
 /** Returns the sentence of `text` that first matches `signal`, exactly as written, or null. */
 export function findEvidence(text: string, signal: Signal): string | null {
-  const sentences = text
-    .split(/(?<=[.!?。！？])\s*|\n+/)
-    .map((s) => s.trim())
-    .filter(Boolean);
-  for (const sentence of sentences) {
-    if (hasSignal(sentence, signal)) return sentence;
+  for (const sentence of sentencesOf(text)) {
+    if (sentenceHasSignal(sentence, signal)) return sentence;
   }
-  return hasSignal(text, signal) ? text.trim() : null;
+  return null;
 }
 
 /** First matching sentence across a list of trainee messages, in order. */

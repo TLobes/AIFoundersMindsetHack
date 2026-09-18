@@ -161,9 +161,16 @@ export default function App() {
     }
   }
 
-  const modeLabel =
-    config === null ? t(lang, 'modeChecking') : config === 'offline' ? t(lang, 'modeOffline') : config.mode === 'gemini' ? `${t(lang, 'modeGemini')} · ${config.model}` : t(lang, 'modeGuided');
-  const modeClass = config === 'offline' ? 'status status-off' : config && config !== 'offline' && config.mode === 'gemini' ? 'status status-ai' : 'status';
+  const isOffline = config === 'offline';
+  const liveConfig: ConfigResponse | null = config !== null && config !== 'offline' ? config : null;
+  const modeLabel = isOffline
+    ? t(lang, 'modeOffline')
+    : liveConfig === null
+      ? t(lang, 'modeChecking')
+      : liveConfig.mode === 'gemini'
+        ? `${t(lang, 'modeGemini')} · ${liveConfig.model}`
+        : t(lang, 'modeGuided');
+  const modeClass = isOffline ? 'status status-off' : liveConfig?.mode === 'gemini' ? 'status status-ai' : 'status';
   const scenario = SCENARIO[lang];
   const otterMood = mood >= 0.65 ? 'calm' : mood >= 0.4 ? 'neutral' : 'upset';
 

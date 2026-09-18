@@ -9,7 +9,7 @@ export type Validation = { ok: true; value: ChatRequest } | { ok: false; error: 
 
 const CONTROL_CHARS = /[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/;
 
-export function validateChatRequest(body: unknown, opts: { requireTrainee?: boolean } = {}): Validation {
+export function validateChatRequest(body: unknown, opts: { allowTrailingCustomer?: boolean } = {}): Validation {
   if (!body || typeof body !== 'object') return { ok: false, error: 'Body must be a JSON object.' };
   const { language, messages } = body as Record<string, unknown>;
 
@@ -33,8 +33,8 @@ export function validateChatRequest(body: unknown, opts: { requireTrainee?: bool
     out.push({ role, content: trimmed });
   }
   if (traineeTurns > MAX_TRAINEE_TURNS) return { ok: false, error: `trainee turns exceed limit of ${MAX_TRAINEE_TURNS}.` };
-  if (opts.requireTrainee !== false && traineeTurns === 0) return { ok: false, error: 'At least one trainee message is required.' };
-  if (out[out.length - 1].role !== 'trainee') return { ok: false, error: 'The last message must be from the trainee.' };
+  if (traineeTurns === 0) return { ok: false, error: 'At least one trainee message is required.' };
+  if (!opts.allowTrailingCustomer && out[out.length - 1].role !== 'trainee') return { ok: false, error: 'The last message must be from the trainee.' };
 
   return { ok: true, value: { language, messages: out } };
 }
