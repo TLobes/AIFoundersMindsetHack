@@ -38,7 +38,7 @@ export default function App() {
   const [showBuild, setShowBuild] = useState(false);
   const [showPolicy, setShowPolicy] = useState(false);
   const [voiceNotice, setVoiceNotice] = useState<string | null>(null);
-  const [voiceOn, setVoiceOn] = useState(false);
+  const [voiceOn, setVoiceOn] = useState(true);
   const [speaking, setSpeaking] = useState(false);
   const [mood, setMood] = useState(0.2);
   const [listening, setListening] = useState(false);
