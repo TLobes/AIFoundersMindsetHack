@@ -170,3 +170,10 @@ button:focus-visible { outline: 3px solid #fff; outline-offset: 4px; }
 @keyframes paw-left-tap { 0%,100% { transform: rotate(0); } 20%,60% { transform: rotate(5deg); } 40%,80% { transform: rotate(-3deg); } }
 @keyframes paw-right-tap { 0%,100% { transform: rotate(0); } 20%,60% { transform: rotate(-5deg); } 40%,80% { transform: rotate(3deg); } }
 @media (prefers-reduced-motion: reduce) { .otter-foot.paw-tapped { animation: none; } }
+
+.devin-value-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 24px 0; }
+.devin-value-grid > div { padding: 18px; background: #17312e; border-radius: 14px; }
+.devin-value-grid h3 { color: var(--teal); font-size: 1.1rem; margin-bottom: 10px; }
+.devin-value-grid p { font-size: 1rem; }
+.devin-takeaway { border-left: 4px solid var(--caramel); padding: 12px 18px; margin: 20px 0; }
+@media(max-width:760px) { .devin-value-grid { grid-template-columns: 1fr; } }
