@@ -286,6 +286,7 @@ export default function App() {
                       value={draft}
                       onChange={(e) => setDraft(e.target.value.slice(0, MAX_MESSAGE_CHARS))}
                       placeholder={t(lang, 'placeholder')}
+                      aria-label={t(lang, 'placeholder')}
                       rows={2}
                       maxLength={MAX_MESSAGE_CHARS}
                       disabled={busy || reachedMax}
