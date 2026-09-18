@@ -1,3 +1,4 @@
+import { speechText } from '../shared/speechText';
 import type { Language } from '../shared/types';
 
 export const canSpeak = typeof window !== 'undefined' && 'speechSynthesis' in window;
@@ -5,7 +6,7 @@ export const canSpeak = typeof window !== 'undefined' && 'speechSynthesis' in wi
 export function speak(text: string, lang: Language, onEnd?: () => void): () => void {
   if (!canSpeak) return () => {};
   window.speechSynthesis.cancel();
-  const u = new SpeechSynthesisUtterance(text);
+  const u = new SpeechSynthesisUtterance(speechText(text, lang));
   u.lang = lang === 'ja' ? 'ja-JP' : 'en-US';
   const voice = window.speechSynthesis.getVoices().find((v) => v.lang.startsWith(u.lang));
   if (voice) u.voice = voice;

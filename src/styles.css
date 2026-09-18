@@ -154,3 +154,10 @@ button:focus-visible { outline: 3px solid #fff; outline-offset: 4px; }
 .build-evidence { justify-content: flex-start; margin-top: 16px; }
 .build-evidence a { color: var(--teal); }
 .build-story li { margin: 8px 0; }
+
+.otter-foot-left { transform-origin: 438px 1022px; animation: foot-left 5.8s ease-in-out infinite; }
+.otter-foot-right { transform-origin: 925px 1018px; animation: foot-right 5.8s ease-in-out infinite; }
+@keyframes foot-left { 0%,55%,100% { transform: rotate(0); } 65%,85% { transform: rotate(2deg); } 75%,95% { transform: rotate(-1deg); } }
+@keyframes foot-right { 0%,55%,100% { transform: rotate(0); } 65%,85% { transform: rotate(-2deg); } 75%,95% { transform: rotate(1deg); } }
+.is-talking .otter-foot { animation-play-state: paused; }
+@media (prefers-reduced-motion: reduce) { .otter-foot { animation: none; } }

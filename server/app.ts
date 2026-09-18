@@ -1,3 +1,4 @@
+import { speechText } from '../shared/speechText.js';
 import express from 'express';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -79,7 +80,7 @@ export function createApp(opts: AppOptions = {}) {
         method: 'POST',
         signal: AbortSignal.timeout(20000),
         headers: { 'xi-api-key': elevenLabsKey, 'content-type': 'application/json', accept: 'audio/mpeg' },
-        body: JSON.stringify({ text, model_id: 'eleven_multilingual_v2', voice_settings: { stability: 0.4, similarity_boost: 0.75, style: 0.45, use_speaker_boost: true, speed: 1.05 } }),
+        body: JSON.stringify({ text: speechText(text), model_id: 'eleven_multilingual_v2', voice_settings: { stability: 0.4, similarity_boost: 0.75, style: 0.45, use_speaker_boost: true, speed: 1.05 } }),
       });
       if (!r.ok) return res.status(502).json({ error: `Speech provider error: HTTP ${r.status}` });
       res.setHeader('content-type', 'audio/mpeg');
