@@ -130,3 +130,20 @@ button:focus-visible { outline: 3px solid #fff; outline-offset: 4px; }
   .otter-img { max-width: 340px; }
   .layout { gap: 28px; }
 }
+
+/* Lightweight character animation; no video or external animation service. */
+.otter-mascot { width: 100%; max-width: 340px; overflow: visible; filter: drop-shadow(0 12px 16px #0008); }
+.otter-reaction { transform-origin: 50% 72%; animation: otter-hello 850ms ease-in-out; }
+.otter-blink { opacity: 0; animation: otter-blink 6.7s infinite; }
+.otter-eye-shine { transform-box: fill-box; transform-origin: center; animation: otter-sparkle 4.3s ease-in-out infinite; }
+.otter-mouth { opacity: 0; transform-origin: 592px 502px; }
+.is-talking .otter-mouth { opacity: 1; animation: otter-chat 380ms ease-in-out infinite alternate; }
+@keyframes otter-hello { 0%,100% { transform: rotate(0); } 22% { transform: rotate(-4deg); } 48% { transform: rotate(3.5deg); } 74% { transform: rotate(-2deg); } }
+@keyframes otter-blink { 0%,43%,47%,50%,54%,100% { opacity: 0; } 44%,46%,51%,53% { opacity: 1; } }
+@keyframes otter-sparkle { 0%,65%,100% { opacity: .2; transform: scale(.8); } 78% { opacity: 1; transform: scale(1.13); } 88% { opacity: .6; transform: scale(.95); } }
+@keyframes otter-chat { 0% { transform: scaleY(.2); } 35% { transform: scaleY(.85); } 65% { transform: scaleY(.4); } 100% { transform: scaleY(1); } }
+@media (prefers-reduced-motion: reduce) {
+  .otter-reaction, .otter-blink, .otter-eye-shine, .is-talking .otter-mouth { animation: none; }
+  .otter-mouth, .is-talking .otter-mouth { opacity: 0; }
+  .otter-eye-shine { opacity: .6; }
+}

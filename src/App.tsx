@@ -1,3 +1,4 @@
+import { OtterMascot } from './OtterMascot';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { OPENING_MESSAGE, POLICIES, SCENARIO } from '../shared/content';
 import {
@@ -37,7 +38,8 @@ export default function App() {
   const [mood, setMood] = useState(0.2);
   const [listening, setListening] = useState(false);
   const [micNote, setMicNote] = useState<string | null>(null);
-  const [imgOk, setImgOk] = useState(true);
+  const [visualTalking, setVisualTalking] = useState(false);
+  const talkTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [langNote, setLangNote] = useState(false);
   const recRef = useRef<RecognitionHandle | null>(null);
   const transcriptRef = useRef<HTMLDivElement>(null);
@@ -55,12 +57,21 @@ export default function App() {
 
   const say = useCallback(
     (text: string) => {
+      if (talkTimer.current) clearTimeout(talkTimer.current);
+      setVisualTalking(true);
+      talkTimer.current = setTimeout(() => setVisualTalking(false), Math.min(7000, Math.max(1800, text.length * 32)));
       if (!voiceOn || !canSpeak) return;
       setSpeaking(true);
       speak(text, lang, () => setSpeaking(false));
     },
     [voiceOn, lang],
   );
+
+  useEffect(() => () => {
+    if (talkTimer.current) clearTimeout(talkTimer.current);
+    stopSpeaking();
+    recRef.current?.stop();
+  }, []);
 
   const traineeTurns = messages.filter((m) => m.role === 'trainee').length;
   const canFinish = traineeTurns >= MIN_TRAINEE_TURNS;
@@ -78,6 +89,8 @@ export default function App() {
 
   function reset() {
     stopSpeaking();
+    if (talkTimer.current) clearTimeout(talkTimer.current);
+    setVisualTalking(false);
     recRef.current?.stop();
     setSpeaking(false);
     setListening(false);
@@ -123,6 +136,9 @@ export default function App() {
 
   async function finish() {
     if (!canFinish || busy) return;
+    if (talkTimer.current) clearTimeout(talkTimer.current);
+    setVisualTalking(false);
+    setSpeaking(false);
     stopSpeaking();
     setBusy(true);
     setError(null);
@@ -198,13 +214,11 @@ export default function App() {
       <main className="layout">
         <section className="stage" aria-label="Otter stage">
           <div className={`otter-frame mood-${otterMood} ${speaking ? 'speaking' : ''}`}>
-            {imgOk ? (
-              <img src="/otter-coach.png" alt={t(lang, 'imgAlt')} className="otter-img" onError={() => setImgOk(false)} />
-            ) : (
-              <div className="otter-fallback" role="img" aria-label={t(lang, 'imgAlt')}>
-                <span>{t(lang, 'imgFallback')}</span>
-              </div>
-            )}
+            <OtterMascot
+              speaking={speaking || visualTalking}
+              reaction={`${messages.length}-${phase}-${lang}-${showPolicy}-${voiceOn}-${listening}`}
+              label={t(lang, 'imgAlt')}
+            />
           </div>
           <div className="stage-controls">
             <button
