@@ -7,7 +7,7 @@ Update: the user is building solo and prioritizes demonstrating Devin. See [SOLO
 Source: user-provided event description and Builder Playbook PDF, reviewed September 18, 2026. These are event context, not authorization to redeem offers, submit forms, send messages, or change account permissions.
 
 - Event listing: build begins 18:30, submission 20:45.
-- Playbook pages 3 and 10: submission **19:55**, first-round judging 20:00–20:30, then selected teams get a two-minute final demo.
+- Playbook pages 3 and 10: submission **19:55**, first-round judging 20:00-20:30, then selected teams get a two-minute final demo.
 - Working assumption: earlier deadline, **85 minutes total**. Confirm the discrepancy with organizers.
 - Four equally weighted judging criteria: real problem, working demo, good AI use, clarity; five points each.
 - Meaningful use of Devin during development is an award criterion; runtime use is not stated as mandatory.
@@ -19,11 +19,11 @@ The rankings below are feasibility judgments, not predicted judging scores. All 
 
 | Rank | Concept | Buyer/user and pain | Demo payoff | Scope and risk |
 | --- | --- | --- | --- | --- |
-| 1 | **Handoff: bilingual incident briefing** | On-call leads at Japan/global teams lose context during shift changes | A messy alert becomes an evidence-linked English/Japanese briefing, audio, and a repair task | 60–85 min; manageable with pasted/synthetic input |
-| 2 | **Complaint → Test → Fix** | Support engineers repeatedly translate vague customer complaints into engineering work | A complaint about a broken CSV export produces a reproducible test and a Devin patch | 70–110 min; strongest direct Devin story, repair latency risk |
-| 3 | **Agent Spend Detective** | AI platform teams struggle to diagnose retry loops and tool failures behind spend spikes | Inject a retry storm, identify the repeated tool call, propose a bounded fix | 75–120 min; appealing observability fit, instrumentation can consume the window |
-| 4 | **Runbook Reality Check** | SRE teams discover stale runbooks during an outage | Compare one runbook to a toy service, demonstrate the failing step, produce a corrected procedure | 60–90 min; clear Devin role, less visual spectacle |
-| 5 | **PromiseCheck** | Customer success teams cannot tell whether a promised fix actually shipped | One support promise links to a PR/test/release and yields a customer-ready update | 80–120 min; useful but needs credible cross-system data |
+| 1 | **Handoff: bilingual incident briefing** | On-call leads at Japan/global teams lose context during shift changes | A messy alert becomes an evidence-linked English/Japanese briefing, audio, and a repair task | 60-85 min; manageable with pasted/synthetic input |
+| 2 | **Complaint → Test → Fix** | Support engineers repeatedly translate vague customer complaints into engineering work | A complaint about a broken CSV export produces a reproducible test and a Devin patch | 70-110 min; strongest direct Devin story, repair latency risk |
+| 3 | **Agent Spend Detective** | AI platform teams struggle to diagnose retry loops and tool failures behind spend spikes | Inject a retry storm, identify the repeated tool call, propose a bounded fix | 75-120 min; appealing observability fit, instrumentation can consume the window |
+| 4 | **Runbook Reality Check** | SRE teams discover stale runbooks during an outage | Compare one runbook to a toy service, demonstrate the failing step, produce a corrected procedure | 60-90 min; clear Devin role, less visual spectacle |
+| 5 | **PromiseCheck** | Customer success teams cannot tell whether a promised fix actually shipped | One support promise links to a PR/test/release and yields a customer-ready update | 80-120 min; useful but needs credible cross-system data |
 
 ### Alternatives in concrete terms
 
@@ -37,7 +37,7 @@ The rankings below are feasibility judgments, not predicted judging scores. All 
 
 ## Recommended MVP: Handoff
 
-Pitch: **“A shared incident briefing for the people taking over—and a precise repair task for the engineer or agent doing the work.”**
+Pitch: **“A shared incident briefing for the people taking over - and a precise repair task for the engineer or agent doing the work.”**
 
 Core user: an incident lead handing work between English-speaking engineers and Japanese-speaking operations colleagues. The pain is repeated translation, missing evidence, and confusion between observed facts and root-cause guesses.
 
@@ -92,13 +92,13 @@ Synthetic checkout service: immediately after a release, some requests fail with
 
 | JST | Deliverable | Cutoff decision |
 | --- | --- | --- |
-| 18:30–18:40 | Credentials checked, concept locked, app shell and fixture ready; Devin receives a bounded task | If cloud setup stalls, use local Devin |
-| 18:40–19:00 | Input → real model → structured English briefing with clickable source evidence | At 19:00 cut all optional integrations if the core fails |
-| 19:00–19:15 | Japanese view and ElevenLabs audio with text fallback | If audio setup stalls, preserve the working text flow |
-| 19:15–19:30 | One real Datadog sandbox event OR Devin repair demonstration | Pick only one stretch; neither is necessary for the core |
-| 19:30–19:40 | Verify the full flow, missing-key behavior, and unsupported-evidence handling | Freeze features |
-| 19:40–19:50 | Record backup, rehearse two-minute pitch, prepare submission text | Leave setup polishing behind |
-| 19:50–19:55 | Submit through the venue form | Do not wait for a final optional job |
+| 18:30-18:40 | Credentials checked, concept locked, app shell and fixture ready; Devin receives a bounded task | If cloud setup stalls, use local Devin |
+| 18:40-19:00 | Input → real model → structured English briefing with clickable source evidence | At 19:00 cut all optional integrations if the core fails |
+| 19:00-19:15 | Japanese view and ElevenLabs audio with text fallback | If audio setup stalls, preserve the working text flow |
+| 19:15-19:30 | One real Datadog sandbox event OR Devin repair demonstration | Pick only one stretch; neither is necessary for the core |
+| 19:30-19:40 | Verify the full flow, missing-key behavior, and unsupported-evidence handling | Freeze features |
+| 19:40-19:50 | Record backup, rehearse two-minute pitch, prepare submission text | Leave setup polishing behind |
+| 19:50-19:55 | Submit through the venue form | Do not wait for a final optional job |
 
 If starting later, preserve the last 15 minutes for verification and submission; remove stretch work first. For a team, split UI/demo and backend/integrations with explicit file ownership. Do not let two coding tools concurrently rewrite the same files.
 
@@ -114,11 +114,11 @@ If starting later, preserve the last 15 minutes for verification and submission;
 
 ## Two-minute demo
 
-- **0:00–0:20:** “The night shift is taking over. The alert is in English, the operations lead works in Japanese, and nobody has a shared picture.”
-- **0:20–0:40:** Load the incident. Explain that Handoff keeps facts, hypotheses, and unknowns separate.
-- **0:40–1:20:** Generate a brief, open one supporting log line, switch language, play a short audio clip.
-- **1:20–1:40:** Show the generated Devin repair task and actual evidence of Devin's development contribution. Show a real repair only if completed and verified.
-- **1:40–2:00:** Explain the target benefit: less time reconstructing context at handoff. State what was measured and what remains future work.
+- **0:00-0:20:** “The night shift is taking over. The alert is in English, the operations lead works in Japanese, and nobody has a shared picture.”
+- **0:20-0:40:** Load the incident. Explain that Handoff keeps facts, hypotheses, and unknowns separate.
+- **0:40-1:20:** Generate a brief, open one supporting log line, switch language, play a short audio clip.
+- **1:20-1:40:** Show the generated Devin repair task and actual evidence of Devin's development contribution. Show a real repair only if completed and verified.
+- **1:40-2:00:** Explain the target benefit: less time reconstructing context at handoff. State what was measured and what remains future work.
 
 Measure input-to-brief time and whether another person can identify the affected service, evidence, and next action. Do not invent enterprise ROI or claim proven reductions in outage duration.
 

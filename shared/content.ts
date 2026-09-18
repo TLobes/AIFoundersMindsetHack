@@ -55,7 +55,7 @@ export const POLICIES: Policy[] = [
 export const SCENARIO: Record<Language, { title: string; body: string; customer: string; disclaimer: string }> = {
   en: {
     title: 'Double charge at Otter Cafe',
-    body: 'Alex paid ¥1,800 for lunch yesterday. Their banking app now shows two entries for Otter Cafe. You are the support trainee. Handle the complaint in 3–5 messages, then review your feedback.',
+    body: 'Alex paid ¥1,800 for lunch yesterday. Their banking app now shows two entries for Otter Cafe. You are the support trainee. Handle the complaint in 3-5 messages, then review your feedback.',
     customer: 'Alex',
     disclaimer: 'Fictional training material. Otter Cafe, Alex and all policies are invented for practice and are not financial advice.',
   },

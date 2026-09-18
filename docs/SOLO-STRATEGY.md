@@ -22,9 +22,9 @@ Sources:
 
 ## Revised shortlist
 
-1. **OtterFix — customer complaint to verified fix.** Strongest fit for making Devin's engineering work the central event. Scope: one toy application, one seeded bug, one real repair.
-2. **OtterProof — prove a vibe-coded app works.** Devin exercises one customer journey and returns a reproducible failure, regression test, and patch. Good fit for developer experience and automated QA, but generic arbitrary-app testing is too broad for tonight.
-3. **OtterBridge — repair Japan localization bugs.** A Japanese-language report exposes a date, text, or currency-formatting bug; Devin reproduces and fixes it. Strong local context; narrower and less immediately visual unless the example is chosen carefully.
+1. **OtterFix  -  customer complaint to verified fix.** Strongest fit for making Devin's engineering work the central event. Scope: one toy application, one seeded bug, one real repair.
+2. **OtterProof  -  prove a vibe-coded app works.** Devin exercises one customer journey and returns a reproducible failure, regression test, and patch. Good fit for developer experience and automated QA, but generic arbitrary-app testing is too broad for tonight.
+3. **OtterBridge  -  repair Japan localization bugs.** A Japanese-language report exposes a date, text, or currency-formatting bug; Devin reproduces and fixes it. Strong local context; narrower and less immediately visual unless the example is chosen carefully.
 
 Recommendation: use OtterFix with a small synthetic otter merchandise shop. This is a memorable demonstration environment for a software-maintenance product. The enterprise user is a support or engineering team, not an otter-toy retailer specifically.
 
@@ -55,12 +55,12 @@ Success evidence: the same test fails before and passes after; the customer jour
 
 ## Solo execution budget (85 minutes)
 
-- 0–10: confirm Devin access, make one bounded task succeed, choose local or Cloud path. Do not spend more than five minutes on API setup.
-- 10–25: build the toy shop and reproduce the seeded defect; record the baseline. Freeze the defect while Devin investigates it.
-- 25–50: Devin performs the real reproduction/test/fix task on a separate branch or copy. Use the time for the small repair-desk view and demo script without editing Devin's files.
-- 50–65: inspect the patch, verify the same regression before/after, and connect actual evidence to the repair record.
-- 65–75: add a short ElevenLabs resolution message only if the repair already works; optionally show real Datadog telemetry if it is already connected.
-- 75–85: record backup, rehearse, submit. Keep using 19:55 as the deadline until the schedule discrepancy is resolved.
+- 0-10: confirm Devin access, make one bounded task succeed, choose local or Cloud path. Do not spend more than five minutes on API setup.
+- 10-25: build the toy shop and reproduce the seeded defect; record the baseline. Freeze the defect while Devin investigates it.
+- 25-50: Devin performs the real reproduction/test/fix task on a separate branch or copy. Use the time for the small repair-desk view and demo script without editing Devin's files.
+- 50-65: inspect the patch, verify the same regression before/after, and connect actual evidence to the repair record.
+- 65-75: add a short ElevenLabs resolution message only if the repair already works; optionally show real Datadog telemetry if it is already connected.
+- 75-85: record backup, rehearse, submit. Keep using 19:55 as the deadline until the schedule discrepancy is resolved.
 
 Devin's runtime is not guaranteed. Start the actual repair well before judging. During the two-minute pitch, show the completed session and verified results; any recording must be labeled. A live new repair is a bonus, not the critical path.
 
@@ -72,11 +72,11 @@ Use an otter toy as a prop if available. Then move immediately to the problem:
 
 "A customer says the order is wrong. Someone has to reproduce it, write a test, and prove the fix. OtterFix packages that work for Devin."
 
-- 0–25 seconds: reproduce the quantity mismatch.
-- 25–45: show the complaint and the actual Devin session/task.
-- 45–85: show the failing regression, code change, and passing result.
-- 85–110: repeat the customer journey successfully.
-- 110–120: explain what is implemented and the next integration: automatic task dispatch and evidence retrieval.
+- 0-25 seconds: reproduce the quantity mismatch.
+- 25-45: show the complaint and the actual Devin session/task.
+- 45-85: show the failing regression, code change, and passing result.
+- 85-110: repeat the customer journey successfully.
+- 110-120: explain what is implemented and the next integration: automatic task dispatch and evidence retrieval.
 
 Use a short playful introduction, then spend most of the time on evidence. Do not imply Cognition endorsement or claim the prototype can safely repair arbitrary production systems.
 

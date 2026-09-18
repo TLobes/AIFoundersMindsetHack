@@ -1,9 +1,7 @@
-import { useId, useState } from 'react';
+import { useId } from 'react';
 /** Animated face details use the original artwork's 1280 × 1280 coordinates. */
-export function OtterMascot({ speaking, reaction, label }: { speaking: boolean; reaction: string; label: string }) {
+export function OtterMascot({ speaking, reaction, label, language, onTickle }: { speaking: boolean; reaction: string; label: string; language: string; onTickle: () => void }) {
   const id = useId().replace(/:/g, '');
-  const [paw, setPaw] = useState({ left: 0, right: 0 });
-  function wiggle(side: 'left' | 'right') { setPaw(p => ({ ...p, [side]: p[side] + 1 })); }
   return (
     <svg className={`otter-mascot ${speaking ? 'is-talking' : ''}`} viewBox="0 0 1280 1280" role="group" aria-label={label}>
       <defs>
@@ -12,8 +10,8 @@ export function OtterMascot({ speaking, reaction, label }: { speaking: boolean; 
       </defs>
       <g key={reaction} className="otter-reaction">
         <image href="/otter-coach.png" width="1280" height="1280" />
-        <g key={`left-${paw.left}`} className={`otter-foot otter-foot-left ${paw.left ? 'paw-tapped' : ''}`} aria-hidden="true"><image href="/otter-coach.png" width="1280" height="1280" clipPath={`url(#${id}-left-foot)`} /></g>
-        <g key={`right-${paw.right}`} className={`otter-foot otter-foot-right ${paw.right ? 'paw-tapped' : ''}`} aria-hidden="true"><image href="/otter-coach.png" width="1280" height="1280" clipPath={`url(#${id}-right-foot)`} /></g>
+        <g className="otter-foot otter-foot-left" aria-hidden="true"><image href="/otter-coach.png" width="1280" height="1280" clipPath={`url(#${id}-left-foot)`} /></g>
+        <g className="otter-foot otter-foot-right" aria-hidden="true"><image href="/otter-coach.png" width="1280" height="1280" clipPath={`url(#${id}-right-foot)`} /></g>
         <g className="otter-blink" aria-hidden="true">
           <ellipse cx="464" cy="375" rx="39" ry="48" fill="#d99a52" transform="rotate(12 464 375)" />
           <path d="M438 377 Q464 400 489 376" fill="none" stroke="#452511" strokeWidth="10" strokeLinecap="round" />
@@ -30,8 +28,8 @@ export function OtterMascot({ speaking, reaction, label }: { speaking: boolean; 
         </g>
         {(['left', 'right'] as const).map(side => (
           <ellipse key={side} className="paw-target" cx={side === 'left' ? 438 : 925} cy="1020" rx="148" ry="145" fill="transparent" role="button" tabIndex={0}
-            aria-label={side === 'left' ? 'Wiggle left paw' : 'Wiggle right paw'}
-            onClick={() => wiggle(side)} onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); wiggle(side); } }} />
+            aria-label={language === 'ja' ? (side === 'left' ? '左足をくすぐる' : '右足をくすぐる') : (side === 'left' ? 'Tickle left foot' : 'Tickle right foot')}
+            onClick={onTickle} onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onTickle(); } }} />
         ))}
       </g>
     </svg>
