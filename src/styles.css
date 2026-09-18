@@ -173,3 +173,5 @@ button:focus-visible { outline: 3px solid #fff; outline-offset: 4px; }
 @media(max-width:760px) { .devin-value-grid { grid-template-columns: 1fr; } }
 .tickle-line { text-align: center; color: var(--caramel); font-weight: 700; margin: 0; }
 .disclaimer, .ev q, .typing, .otter-fallback { font-style: normal; }
+
+.button-icon { display: inline-block; vertical-align: -3px; margin-right: 8px; flex-shrink: 0; }

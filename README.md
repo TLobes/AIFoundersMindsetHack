@@ -1,5 +1,7 @@
 # AIFoundersMindsetHack
 
+**[Open the live Otter Coach demo](https://otter-coach-gray.vercel.app)**
+
 Planning workspace for the AI Founders Mindset / Datadog AI Agents Hackathon, September 18, 2026, Tokyo.
 
 **Status: working guided demo, independently verified in English and Japanese.**
@@ -29,3 +31,7 @@ Earlier concept exploration is retained in `docs/HACKATHON-PLAN.md`, `docs/SOLO-
 The supplied builder playbook lists **19:55 JST submission**, earlier than the event listing's 20:45. Plan around 19:55 until organizers confirm. The playbook permits meaningful use of Devin during development; runtime API integration is not a stated award requirement.
 
 Research checked September 18, 2026 against official product documentation. Devin has created the implementation PR. Live Gemini and ElevenLabs integrations have not been tested; guided mode requires neither service. The original playbook, credentials, and redemption codes are not included in this repository.
+
+## Hosting
+
+Deployed on Vercel with a Vite frontend and an Express serverless API. Set `ELEVENLABS_API_KEY` as a production secret in Vercel, then redeploy. Never use a `VITE_` prefix for provider keys. Local `.env` and `.env.devin` are excluded from Git and deployment uploads.

@@ -1,3 +1,4 @@
+import { Icon } from './Icon';
 import { OtterMascot } from './OtterMascot';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { OPENING_MESSAGE, POLICIES, SCENARIO } from '../shared/content';
@@ -281,11 +282,11 @@ export default function App() {
               title={voiceAvailable ? undefined : t(lang, 'speakerUnavailable')}
               aria-pressed={voiceOn}
             >
-              {voiceOn ? t(lang, 'speakerOn') : t(lang, 'speakerOff')} {elevenVoice ? '· ElevenLabs' : ''}
+              <Icon name={voiceOn ? 'volume' : 'mute'} />{voiceOn ? t(lang, 'speakerOn') : t(lang, 'speakerOff')} {elevenVoice ? '· ElevenLabs' : ''}
             </button>
-            {voiceOn && messages.some(m => m.role === 'customer') && <button type="button" className="chip" onClick={() => say([...messages].reverse().find(m => m.role === 'customer')!.content)}>{lang === 'ja' ? 'もう一度聞く' : 'Replay reply'}</button>}
+            {voiceOn && messages.some(m => m.role === 'customer') && <button type="button" className="chip" onClick={() => say([...messages].reverse().find(m => m.role === 'customer')!.content)}><Icon name="replay" />{lang === 'ja' ? 'もう一度聞く' : 'Replay reply'}</button>}
             <button type="button" className="chip" onClick={() => setShowPolicy(!showPolicy)} aria-expanded={showPolicy}>
-              {showPolicy ? t(lang, 'hidePolicy') : t(lang, 'policySheet')}
+              <Icon name="book" />{showPolicy ? t(lang, 'hidePolicy') : t(lang, 'policySheet')}
             </button>
           </div>
           {voiceNotice && <p className="hint" role="status">{voiceNotice}</p>}
@@ -320,7 +321,7 @@ export default function App() {
             <p className="disclaimer">{scenario.disclaimer}</p>
             {phase === 'idle' && (
               <button type="button" className="primary" onClick={start} data-testid="start">
-                {t(lang, 'start')}
+                <Icon name="play" />{t(lang, 'start')}
               </button>
             )}
           </div>
@@ -364,10 +365,10 @@ export default function App() {
                     />
                     <div className="composer-actions">
                       <button type="button" className={`icon ${listening ? 'listening' : ''}`} onClick={toggleMic} disabled={busy || reachedMax} aria-pressed={listening} title={canRecognize ? t(lang, 'mic') : t(lang, 'micUnavailable')}>
-                        {listening ? t(lang, 'micListening') : t(lang, 'mic')}
+                        <Icon name="mic" />{listening ? t(lang, 'micListening') : t(lang, 'mic')}
                       </button>
                       <button type="submit" className="primary" disabled={busy || reachedMax || !draft.trim()} data-testid="send">
-                        {t(lang, 'send')}
+                        <Icon name="send" />{t(lang, 'send')}
                       </button>
                     </div>
                   </div>
@@ -376,7 +377,7 @@ export default function App() {
                       {t(lang, 'turns')} {traineeTurns}/{MAX_TRAINEE_TURNS} · {draft.length}/{MAX_MESSAGE_CHARS}
                     </span>
                     <button type="button" className="secondary" onClick={finish} disabled={!canFinish || busy} data-testid="finish" title={canFinish ? undefined : t(lang, 'finishHint')}>
-                      {t(lang, 'finish')}
+                      <Icon name="review" />{t(lang, 'finish')}
                     </button>
                   </div>
                   {!canFinish && <p className="hint">{t(lang, 'finishHint')}</p>}
@@ -422,7 +423,7 @@ export default function App() {
                 ))}
               </ul>
               <button type="button" className="primary" onClick={reset} data-testid="retry">
-                {t(lang, 'retry')}
+                <Icon name="replay" />{t(lang, 'retry')}
               </button>
             </div>
           )}
