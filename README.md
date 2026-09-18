@@ -2,7 +2,9 @@
 
 Planning workspace for the AI Founders Mindset / Datadog AI Agents Hackathon, September 18, 2026, Tokyo.
 
-**Status: research and planning only; no application implemented yet.**
+**Status: Otter Coach implementation in progress.**
+
+Current product: **Otter Coach**, a bilingual customer-service practice app. See the [current build brief](docs/BUILD-BRIEF.md), which supersedes earlier concept proposals.
 
 Updated recommendation: **OtterFix**, a customer-complaint-to-verified-code-fix demo, prioritizing a visible Devin contribution for a solo builder. This remains a proposal, pending the builder's choice. Handoff is retained as an alternative.
 
