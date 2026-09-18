@@ -161,3 +161,12 @@ button:focus-visible { outline: 3px solid #fff; outline-offset: 4px; }
 @keyframes foot-right { 0%,55%,100% { transform: rotate(0); } 65%,85% { transform: rotate(-2deg); } 75%,95% { transform: rotate(1deg); } }
 .is-talking .otter-foot { animation-play-state: paused; }
 @media (prefers-reduced-motion: reduce) { .otter-foot { animation: none; } }
+
+.paw-target { cursor: pointer; pointer-events: all; }
+.paw-target:focus-visible { outline: none; stroke: var(--teal); stroke-width: 7px; stroke-dasharray: 12 8; }
+.otter-foot-left.paw-tapped { animation: paw-left-tap 900ms ease-in-out, foot-left 5.8s 900ms ease-in-out infinite; }
+.otter-foot-right.paw-tapped { animation: paw-right-tap 900ms ease-in-out, foot-right 5.8s 900ms ease-in-out infinite; }
+.is-talking .otter-foot.paw-tapped { animation-play-state: running; }
+@keyframes paw-left-tap { 0%,100% { transform: rotate(0); } 20%,60% { transform: rotate(5deg); } 40%,80% { transform: rotate(-3deg); } }
+@keyframes paw-right-tap { 0%,100% { transform: rotate(0); } 20%,60% { transform: rotate(-5deg); } 40%,80% { transform: rotate(3deg); } }
+@media (prefers-reduced-motion: reduce) { .otter-foot.paw-tapped { animation: none; } }
