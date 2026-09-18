@@ -1,5 +1,7 @@
 # AIFoundersMindsetHack
 
+<p align="center"><img src="public/otter-coach.png" alt="Otter Coach holding a laptop" width="320"></p>
+
 **[Open the live Otter Coach demo](https://otter-coach-gray.vercel.app)**
 
 Planning workspace for the AI Founders Mindset / Datadog AI Agents Hackathon, September 18, 2026, Tokyo.
