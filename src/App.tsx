@@ -245,7 +245,7 @@ export default function App() {
           <div><h3>{lang === 'ja' ? '検証' : 'Tested it'}</h3><p>{lang === 'ja' ? '30件のテスト。レビューから修正へ。' : '30 tests. Fixes from our review.'}</p></div>
           <div><h3>{lang === 'ja' ? '納品' : 'Delivered it'}</h3><p>{lang === 'ja' ? '私たちのリポジトリに、確認できるPR。' : 'A reviewable PR in our own repo.'}</p></div>
         </div>
-        <p className="muted">{lang === 'ja' ? '企画・デザイン・アニメーション・音声連携：Tim + Codex。開発：Devin。音声：ElevenLabs。会話はルールベース。' : 'Direction, design, animation & voice integration: Tim + Codex. Core development: Devin. Voice: ElevenLabs. Rule-based conversations.'}</p>
+        <p className="muted">{lang === 'ja' ? '開発パートナー：Devin。音声：ElevenLabs。会話はルールベース。' : 'Development partner: Devin. Voice: ElevenLabs. Rule-based conversations.'}</p>
         <div className="build-evidence"><a href="https://app.devin.ai/sessions/ab77dc21b829467bbb93ea520a873fae" target="_blank" rel="noreferrer">Devin session ↗</a><a href="https://github.com/TLobes/AIFoundersMindsetHack/pull/1" target="_blank" rel="noreferrer">Implementation PR ↗</a><a href="https://github.com/TLobes/AIFoundersMindsetHack/blob/devin/otter-coach/docs/BUILD-PROVENANCE.md" target="_blank" rel="noreferrer">Full build record ↗</a></div>
       </section>}
       {langNote && phase !== 'idle' && <p className="note">{t(lang, 'langLocked')}</p>}
