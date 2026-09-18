@@ -4,7 +4,7 @@ This supersedes the earlier OtterFix and Handoff proposals. Build Otter Coach, a
 
 ## Core experience
 
-One fictional scenario: a customer believes they were charged twice at Otter Cafe. A trainee practises handling the complaint over 3–5 conversational turns, then receives evidence-based feedback and can retry. English and Japanese UI and conversation. Clearly label all company policies as fictional training material, not financial advice.
+One fictional scenario: a customer believes they were charged twice at Otter Cafe. A trainee practises handling the complaint over 3-5 conversational turns, then receives evidence-based feedback and can retry. English and Japanese UI and conversation. Clearly label all company policies as fictional training material, not financial advice.
 
 Sample policy IDs:
 - P1: Acknowledge concern and show empathy without blaming the customer.

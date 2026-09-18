@@ -8,19 +8,19 @@ The current no-key mode is guided practice: deterministic conversation and rule-
 
 ## 90-second presentation
 
-0–15s: "Your first difficult customer should be an otter. Otter Coach lets support teams practise before they handle a real complaint."
+0-15s: "Your first difficult customer should be an otter. Otter Coach lets support teams practise before they handle a real complaint."
 
-15–30s: Start the double-charge scenario. Show the policy drawer so the audience can see what good handling means.
+15-30s: Start the double-charge scenario. Show the policy drawer so the audience can see what good handling means.
 
-30–55s: Respond to the customer. Use the sample good responses below if typing on stage is slow. If browser speech works, play a short customer line; keep subtitles visible.
+30-55s: Respond to the customer. Use the sample good responses below if typing on stage is slow. If browser speech works, play a short customer line; keep subtitles visible.
 
-55–75s: Finish and show feedback with exact trainee quotations. Explain that the current guided version checks policy skills, and that it is training feedback rather than an employment assessment.
+55-75s: Finish and show feedback with exact trainee quotations. Explain that the current guided version checks policy skills, and that it is training feedback rather than an employment assessment.
 
-75–90s: Show the actual Devin session/PR. "Devin implemented the browser app and tests in its own environment. I supplied the product brief and reviewed the result. This demo runs without a paid conversation API; a live model adapter is the next mode to enable."
+75-90s: Show the actual Devin session/PR. "Devin implemented the browser app and tests in its own environment. I supplied the product brief and reviewed the result. This demo runs without a paid conversation API; a live model adapter is the next mode to enable."
 
 ## English sample
 
-1. "I'm sorry—that sounds frustrating. Are both entries completed, or does one say pending?"
+1. "I'm sorry - that sounds frustrating. Are both entries completed, or does one say pending?"
 2. "A pending entry may be an authorization, so it isn't proof of a second completed charge. I can't promise a refund before we check."
 3. "If both charges are posted, please share your receipt reference through our support channel and we'll escalate for review. Does that next step make sense?"
 
