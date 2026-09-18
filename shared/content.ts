@@ -54,14 +54,14 @@ export const POLICIES: Policy[] = [
 
 export const SCENARIO: Record<Language, { title: string; body: string; customer: string; disclaimer: string }> = {
   en: {
-    title: 'Double charge at Otter Cafe',
-    body: 'Alex paid ¥1,800 for lunch yesterday. Their banking app now shows two entries for Otter Cafe. You are the support trainee. Handle the complaint in 3-5 messages, then review your feedback.',
+    title: 'One lunch. Two charges?',
+    body: 'Alex sees two ¥1,800 charges. Help them out in 3-5 replies, then get your feedback.',
     customer: 'Alex',
     disclaimer: 'Fictional training material. Otter Cafe, Alex and all policies are invented for practice and are not financial advice.',
   },
   ja: {
-    title: 'オッターカフェでの二重請求',
-    body: 'アレックスさんは昨日ランチで1,800円を支払いました。銀行アプリにはオッターカフェの項目が2件表示されています。あなたはサポート研修生です。3〜5回のメッセージで対応し、フィードバックを確認しましょう。',
+    title: 'ランチは1回。請求は2回？',
+    body: '1,800円の請求が2件。アレックスさんに3〜5回返信して、対応を振り返りましょう。',
     customer: 'アレックス',
     disclaimer: 'これは架空の研修教材です。オッターカフェ、アレックス、すべてのポリシーは練習用の創作であり、金融に関する助言ではありません。',
   },

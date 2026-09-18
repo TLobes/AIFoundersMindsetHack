@@ -238,21 +238,14 @@ export default function App() {
         </div>
       </header>
       {showBuild && <section id="devin-story" className="card build-story">
-        <div className="build-title"><h2>{lang === 'ja' ? 'アイデアを、動くアプリへ。Devinと一緒に。' : 'From an idea to a working app - with Devin.'}</h2><button className="chip" onClick={() => setShowBuild(false)}>{lang === 'ja' ? '閉じる' : 'Close'}</button></div>
-        <p>{lang === 'ja' ? 'ひとりで参加するハッカソンでも、実装を任せられる開発パートナーがいる。仕様をDevinに渡すと、自身の開発環境でリポジトリを読み、コードを書き、テストし、レビューできるPRとして届けてくれました。' : 'A solo hackathon builder, with an engineering partner. We gave Devin a product brief and a connected repository. In its own environment, it wrote code, ran checks, and delivered a pull request we could inspect and improve.'}</p>
+        <div className="build-title"><h2>{lang === 'ja' ? 'ひとりの挑戦。Devinが開発パートナー。' : 'Solo builder. Meet Devin.'}</h2><button className="chip" onClick={() => setShowBuild(false)}>{lang === 'ja' ? '閉じる' : 'Close'}</button></div>
+        <p>{lang === 'ja' ? 'アイデアを渡して、動くコードへ。Devinが実装を進める間に、私たちは体験を磨きました。' : 'We brought the idea. Devin built the core app while we shaped the experience.'}</p>
         <div className="devin-value-grid">
-          <div><h3>{lang === 'ja' ? '実装を任せる' : 'Delegate implementation'}</h3><p>{lang === 'ja' ? 'Devinがアプリの基盤を作る間に、私たちは体験設計とマスコット、デモの準備を進めました。' : 'While Devin built the core app, we worked on the experience, mascot, and demo.'}</p></div>
-          <div><h3>{lang === 'ja' ? '動かして、直す' : 'Test, review, improve'}</h3><p>{lang === 'ja' ? '実際のブラウザで見つけた不具合を伝えると、Devinが修正と回帰テストを追加しました。' : 'We sent back real browser failures. Devin patched the code and added regression tests.'}</p></div>
-          <div><h3>{lang === 'ja' ? '成果を確認できる' : 'See the work'}</h3><p>{lang === 'ja' ? 'セッション、コミット、PRで、何を作り何を直したかを確認できます。' : 'Its session, commits, and PR show what it built and what changed. The output is code we own and can run.'}</p></div>
+          <div><h3>{lang === 'ja' ? '実装' : 'Built it'}</h3><p>{lang === 'ja' ? '英日チャット、API、コーチング。' : 'Bilingual chat, API, and coaching.'}</p></div>
+          <div><h3>{lang === 'ja' ? '検証' : 'Tested it'}</h3><p>{lang === 'ja' ? '30件のテスト。レビューから修正へ。' : '30 tests. Fixes from our review.'}</p></div>
+          <div><h3>{lang === 'ja' ? '納品' : 'Delivered it'}</h3><p>{lang === 'ja' ? '私たちのリポジトリに、確認できるPR。' : 'A reviewable PR in our own repo.'}</p></div>
         </div>
-        <h3>{lang === 'ja' ? 'このデモでDevinが担当したこと' : 'What Devin delivered here'}</h3>
-        <ol>
-          <li>{lang === 'ja' ? 'Reactの英日UI、Express API、ガイド付き会話とポリシー採点を実装。' : 'Built the bilingual React interface, Express API, guided conversations, and policy-based coaching.'}</li>
-          <li>{lang === 'ja' ? '音声の基本機能、オプションのGemini連携、30件のテストを作成。' : 'Added browser speech foundations, an optional Gemini adapter, and 30 automated tests.'}</li>
-          <li>{lang === 'ja' ? 'レビューで見つかった振り返り処理、否定表現、TypeScript、起動パスの問題を修正。' : 'Fixed review failures we found: transcript validation, negation handling, TypeScript compilation, and production startup paths.'}</li>
-        </ol>
-        <p className="devin-takeaway">{lang === 'ja' ? 'Devinの価値は、仕様から実装・テスト・修正まで任せられること。人は方向性を決め、結果を検証します。' : 'Why Devin helped: we could delegate a bounded engineering task through implementation, tests, and fixes - and keep our attention on what to build and whether it worked.'}</p>
-        <p className="muted">{lang === 'ja' ? 'TimとCodex：企画、仕様、マスコット、独立検証、黒いテーマ、アニメーション、ElevenLabs再生連携。会話と採点は現在ルールベースです。Devinは実行中の会話モデルではありません。' : 'Tim + Codex: product direction, brief, mascot, independent verification, dark theme, animation, and live ElevenLabs playback. Conversation and scoring are currently rule-based; Devin is our development agent, not the runtime chatbot.'}</p>
+        <p className="muted">{lang === 'ja' ? '企画・デザイン・アニメーション・音声連携：Tim + Codex。開発：Devin。音声：ElevenLabs。会話はルールベース。' : 'Direction, design, animation & voice integration: Tim + Codex. Core development: Devin. Voice: ElevenLabs. Rule-based conversations.'}</p>
         <div className="build-evidence"><a href="https://app.devin.ai/sessions/ab77dc21b829467bbb93ea520a873fae" target="_blank" rel="noreferrer">Devin session ↗</a><a href="https://github.com/TLobes/AIFoundersMindsetHack/pull/1" target="_blank" rel="noreferrer">Implementation PR ↗</a><a href="https://github.com/TLobes/AIFoundersMindsetHack/blob/devin/otter-coach/docs/BUILD-PROVENANCE.md" target="_blank" rel="noreferrer">Full build record ↗</a></div>
       </section>}
       {langNote && phase !== 'idle' && <p className="note">{t(lang, 'langLocked')}</p>}
@@ -318,7 +311,6 @@ export default function App() {
               <h2>{scenario.title}</h2>
             </div>
             <p>{scenario.body}</p>
-            <p className="disclaimer">{scenario.disclaimer}</p>
             {phase === 'idle' && (
               <button type="button" className="primary" onClick={start} data-testid="start">
                 <Icon name="play" />{t(lang, 'start')}

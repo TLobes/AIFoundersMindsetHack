@@ -2,7 +2,7 @@ import type { Language } from '../shared/types';
 
 const STRINGS = {
   tagline: { en: 'Practice makes kinder conversations', ja: '練習が、やさしい会話をつくる' },
-  modeGuided: { en: 'Guided demo · rule-based, no AI', ja: 'ガイド付きデモ · ルールベース、AIなし' },
+  modeGuided: { en: 'Guided practice · rule-based', ja: 'ガイド付き練習 · ルールベース' },
   modeGemini: { en: 'AI mode · Gemini', ja: 'AIモード · Gemini' },
   modeChecking: { en: 'Checking server…', ja: 'サーバー確認中…' },
   modeOffline: { en: 'Server unreachable', ja: 'サーバーに接続できません' },
@@ -37,7 +37,7 @@ const STRINGS = {
   error: { en: 'Something went wrong', ja: 'エラーが発生しました' },
   imgAlt: { en: 'Otter Coach mascot', ja: 'オッターコーチのマスコット' },
   imgFallback: { en: 'Mascot image coming soon', ja: 'マスコット画像は準備中' },
-  footer: { en: 'Fictional scenario for practice. No real customers, payments or accounts are involved.', ja: '練習用の架空シナリオです。実際の顧客・決済・アカウントは一切関係ありません。' },
+  footer: { en: 'Practice scenario. Fictional cafe, customer, and policies.', ja: 'カフェ・お客様・ポリシーは練習用の架空設定です。' },
   ariaTranscript: { en: 'Practice conversation', ja: '練習の会話' },
 } satisfies Record<string, Record<Language, string>>;
 
