@@ -32,6 +32,7 @@ export default function App() {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [feedback, setFeedback] = useState<Feedback | null>(null);
+  const [showBuild, setShowBuild] = useState(false);
   const [showPolicy, setShowPolicy] = useState(false);
   const [voiceOn, setVoiceOn] = useState(false);
   const [speaking, setSpeaking] = useState(false);
@@ -207,6 +208,7 @@ export default function App() {
           <p className="tagline">{t(lang, 'tagline')}</p>
         </div>
         <div className="header-right">
+          <button className="build-link" type="button" onClick={() => setShowBuild(!showBuild)} aria-expanded={showBuild} aria-controls="devin-story">{lang === 'ja' ? 'Devinが作ったもの ↗' : 'Built with Devin ↗'}</button>
           <span className={modeClass} data-testid="provider-status">{modeLabel}</span>
           <div className="lang-switch" role="group" aria-label="Language">
             <button type="button" className={lang === 'en' ? 'on' : ''} aria-pressed={lang === 'en'} onClick={() => switchLang('en')} disabled={phase !== 'idle' && lang !== 'en'}>
@@ -218,6 +220,17 @@ export default function App() {
           </div>
         </div>
       </header>
+      {showBuild && <section id="devin-story" className="card build-story">
+        <div className="build-title"><h2>{lang === 'ja' ? 'Devinが実際に担当したこと' : 'What Devin actually built'}</h2><button className="chip" onClick={() => setShowBuild(false)}>{lang === 'ja' ? '閉じる' : 'Close'}</button></div>
+        <p>{lang === 'ja' ? 'Devinは自身の開発環境で、このリポジトリを読み、実装し、コミットしてPRを作成しました。' : 'Devin worked in its own development environment: read our brief, implemented the app, pushed commits, and opened a pull request.'}</p>
+        <ol>
+          <li>{lang === 'ja' ? 'Reactの英日UI、Express API、ガイド付き会話とポリシー採点を実装。' : 'Built the bilingual React interface, Express API, guided conversations, and policy-based coaching.'}</li>
+          <li>{lang === 'ja' ? '音声の基本機能、オプションのGemini連携、30件のテストを作成。' : 'Added browser speech foundations, an optional Gemini adapter, and 30 automated tests.'}</li>
+          <li>{lang === 'ja' ? 'レビューで見つかった振り返り処理、否定表現、TypeScript、起動パスの問題を修正。' : 'Fixed review failures we found: transcript validation, negation handling, TypeScript compilation, and production startup paths.'}</li>
+        </ol>
+        <p className="muted">{lang === 'ja' ? 'TimとCodex：企画、仕様、マスコット、独立検証、黒いテーマ、アニメーション、ElevenLabs再生連携。会話と採点は現在ルールベースです。Devinは実行中の会話モデルではありません。' : 'Tim + Codex: product direction, brief, mascot, independent verification, dark theme, animation, and live ElevenLabs playback. Conversation and scoring are currently rule-based; Devin is our development agent, not the runtime chatbot.'}</p>
+        <div className="build-evidence"><a href="https://app.devin.ai/sessions/ab77dc21b829467bbb93ea520a873fae" target="_blank" rel="noreferrer">Devin session ↗</a><a href="https://github.com/TLobes/AIFoundersMindsetHack/pull/1" target="_blank" rel="noreferrer">Implementation PR ↗</a><a href="https://github.com/TLobes/AIFoundersMindsetHack/blob/devin/otter-coach/docs/BUILD-PROVENANCE.md" target="_blank" rel="noreferrer">Full build record ↗</a></div>
+      </section>}
       {langNote && phase !== 'idle' && <p className="note">{t(lang, 'langLocked')}</p>}
 
       <main className="layout">

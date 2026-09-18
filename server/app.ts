@@ -18,7 +18,7 @@ export interface AppOptions {
 export function createApp(opts: AppOptions = {}) {
   const gemini = opts.gemini === undefined ? geminiConfigFromEnv() : opts.gemini;
   const elevenLabsKey = opts.elevenLabsKey === undefined ? process.env.ELEVENLABS_API_KEY?.trim() || null : opts.elevenLabsKey;
-  const voiceId = opts.elevenLabsVoiceId ?? process.env.ELEVENLABS_VOICE_ID?.trim() ?? 'EXAVITQu4vr4xnSDxMaL';
+  const voiceId = opts.elevenLabsVoiceId ?? process.env.ELEVENLABS_VOICE_ID?.trim() ?? 'cgSgspJ2msm6clMCkdW9';
   const f = opts.fetchImpl ?? fetch;
 
   const app = express();
@@ -79,7 +79,7 @@ export function createApp(opts: AppOptions = {}) {
         method: 'POST',
         signal: AbortSignal.timeout(20000),
         headers: { 'xi-api-key': elevenLabsKey, 'content-type': 'application/json', accept: 'audio/mpeg' },
-        body: JSON.stringify({ text, model_id: 'eleven_multilingual_v2' }),
+        body: JSON.stringify({ text, model_id: 'eleven_multilingual_v2', voice_settings: { stability: 0.4, similarity_boost: 0.75, style: 0.45, use_speaker_boost: true, speed: 1.05 } }),
       });
       if (!r.ok) return res.status(502).json({ error: `Speech provider error: HTTP ${r.status}` });
       res.setHeader('content-type', 'audio/mpeg');

@@ -147,3 +147,10 @@ button:focus-visible { outline: 3px solid #fff; outline-offset: 4px; }
   .otter-mouth, .is-talking .otter-mouth { opacity: 0; }
   .otter-eye-shine { opacity: .6; }
 }
+
+.build-link { background: none; border: 0; color: var(--teal); text-decoration: underline; text-underline-offset: 5px; cursor: pointer; padding: 8px 0; font-weight: 600; }
+.build-story { margin-top: 20px; border: 1px solid var(--teal); }
+.build-title, .build-evidence { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.build-evidence { justify-content: flex-start; margin-top: 16px; }
+.build-evidence a { color: var(--teal); }
+.build-story li { margin: 8px 0; }
