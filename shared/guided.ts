@@ -96,7 +96,16 @@ export function guidedReply(language: Language, messages: ChatMessage[]): Guided
   const pendingAlreadyRevealed = previous.some((m) => hasSignal(m, 'askPending'));
   const isFinalTurn = trainee.length >= 5;
 
-  const pick = (line: Line): GuidedResult => ({ reply: line[language], mood });
+  const fallback: Line[] = [
+    { en: 'The two entries are for the same lunch. Would it help if I checked whether they are pending or completed?', ja: '同じランチの項目が2件あります。保留中か確定済みかを確認しましょうか？' },
+    { en: 'I checked: one entry is pending and one is completed. Does pending mean the money has actually been taken twice?', ja: '確認しました。1件は保留中で、もう1件は確定です。保留中とは、実際に2回引き落とされたという意味ですか？' },
+    { en: 'I have the receipt, reference OC-2291. If both entries become completed, who should I contact for a review?', ja: 'レシートの参照番号はOC-2291です。両方とも確定になった場合は、誰に確認をお願いすればいいですか？' },
+    { en: 'Before we finish, could you tell me the next step in simple words? I want to know what to check and when to contact support.', ja: '最後に、次に何をすればよいか簡単に教えてください。何を確認して、どんな場合にサポートへ連絡すればいいですか？' },
+  ];
+  const used = new Set(messages.filter(m => m.role === 'customer').map(m => m.content));
+  const pick = (line: Line): GuidedResult => ({
+    reply: used.has(line[language]) ? (fallback.find(l => !used.has(l[language])) ?? L.closeUpset)[language] : line[language], mood,
+  });
 
   if (hasSignal(last, 'blame')) return pick(L.blameReaction);
   if (hasSignal(last, 'askSensitive')) return pick(L.sensitiveRefusal);
@@ -118,5 +127,5 @@ export function guidedReply(language: Language, messages: ChatMessage[]): Guided
     return pick(mood >= 0.6 ? L.closeCalm : L.closeNeutral);
   }
   if (hasSignal(last, 'empathy')) return pick(L.empathyOnly);
-  return pick(L.neutralPush);
+  return pick(fallback[Math.min(trainee.length - 1, fallback.length - 1)]);
 }

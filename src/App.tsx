@@ -34,6 +34,7 @@ export default function App() {
   const [feedback, setFeedback] = useState<Feedback | null>(null);
   const [showBuild, setShowBuild] = useState(false);
   const [showPolicy, setShowPolicy] = useState(false);
+  const [voiceNotice, setVoiceNotice] = useState<string | null>(null);
   const [voiceOn, setVoiceOn] = useState(false);
   const [speaking, setSpeaking] = useState(false);
   const [mood, setMood] = useState(0.2);
@@ -66,8 +67,10 @@ export default function App() {
       talkTimer.current = setTimeout(() => setVisualTalking(false), Math.min(7000, Math.max(1800, text.length * 32)));
       if (!voiceOn || !voiceAvailable) return;
       if (elevenVoice) {
-        void speakElevenLabs(text, () => setSpeaking(true), () => setSpeaking(false), () => {
-          setError(lang === 'ja' ? '音声を再生できませんでした。テキストで続けられます。' : 'Voice playback failed. You can continue with text.');
+        setVoiceNotice(null);
+        void speakElevenLabs(text, () => setSpeaking(true), () => setSpeaking(false), (reason) => {
+          setVoiceNotice(lang === 'ja' ? `ElevenLabs音声を再生できなかったため、ブラウザ音声に切り替えます。再生ボタンで再試行できます。(${reason})` : `ElevenLabs unavailable; using browser voice. You can replay the reply. (${reason})`);
+          if (canSpeak) { setSpeaking(true); speak(text, lang, () => setSpeaking(false)); }
         });
         return;
       }
@@ -257,10 +260,12 @@ export default function App() {
             >
               {voiceOn ? t(lang, 'speakerOn') : t(lang, 'speakerOff')} {elevenVoice ? '· ElevenLabs' : ''}
             </button>
+            {voiceOn && messages.some(m => m.role === 'customer') && <button type="button" className="chip" onClick={() => say([...messages].reverse().find(m => m.role === 'customer')!.content)}>{lang === 'ja' ? 'もう一度聞く' : 'Replay reply'}</button>}
             <button type="button" className="chip" onClick={() => setShowPolicy(!showPolicy)} aria-expanded={showPolicy}>
               {showPolicy ? t(lang, 'hidePolicy') : t(lang, 'policySheet')}
             </button>
           </div>
+          {voiceNotice && <p className="hint" role="status">{voiceNotice}</p>}
           {!voiceAvailable && <p className="hint">{t(lang, 'speakerUnavailable')}</p>}
 
           {showPolicy && (

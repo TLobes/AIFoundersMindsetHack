@@ -31,7 +31,7 @@ export function stopSpeaking(): void {
 }
 
 /** Audio stays behind our server proxy; credentials never enter the browser. */
-export async function speakElevenLabs(text: string, onStart: () => void, onEnd: () => void, onError: () => void): Promise<void> {
+export async function speakElevenLabs(text: string, onStart: () => void, onEnd: () => void, onError: (reason: string) => void): Promise<void> {
   stopSpeaking();
   const controller = new AbortController();
   speechRequest = controller;
@@ -40,7 +40,10 @@ export async function speakElevenLabs(text: string, onStart: () => void, onEnd: 
       method: 'POST', headers: { 'content-type': 'application/json' },
       body: JSON.stringify({ text }), signal: controller.signal,
     });
-    if (!response.ok) throw new Error('Speech unavailable');
+    if (!response.ok) {
+      const detail = await response.json().catch(() => ({}));
+      throw new Error(detail.error || `Speech service HTTP ${response.status}`);
+    }
     const blob = await response.blob();
     if (controller.signal.aborted) return;
     remoteUrl = URL.createObjectURL(blob);
@@ -48,11 +51,11 @@ export async function speakElevenLabs(text: string, onStart: () => void, onEnd: 
     remoteAudio = audio;
     const finish = () => { if (speechRequest === controller) { stopSpeaking(); onEnd(); } };
     audio.onended = finish;
-    audio.onerror = () => { finish(); onError(); };
+    audio.onerror = () => { finish(); onError('Audio could not be decoded or played.'); };
     await audio.play();
     if (!controller.signal.aborted) onStart();
-  } catch {
-    if (!controller.signal.aborted) { stopSpeaking(); onEnd(); onError(); }
+  } catch (error) {
+    if (!controller.signal.aborted) { stopSpeaking(); onEnd(); onError(error instanceof Error ? error.message : 'Audio unavailable'); }
   }
 }
 
