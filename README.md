@@ -6,6 +6,17 @@ Planning workspace for the AI Founders Mindset / Datadog AI Agents Hackathon, Se
 
 Current product: **Otter Coach**, a bilingual customer-service practice app. See the [current build brief](docs/BUILD-BRIEF.md), which supersedes earlier concept proposals.
 
+## Run Otter Coach
+
+```bash
+npm install
+npm run dev        # client http://localhost:5173 (proxies /api), server http://localhost:3001
+npm test           # vitest: rule engine, scorer, API validation
+npm run build && npm start   # production: Express serves dist/client on :3001
+```
+
+Without `GEMINI_API_KEY` the app runs in **Guided demo** mode: the customer (Alex) and the feedback are deterministic rules, clearly labelled as not AI. Setting `GEMINI_API_KEY` (and optionally `GEMINI_MODEL`) on the server enables the optional Gemini adapter; `ELEVENLABS_API_KEY` enables optional server speech. Browser `speechSynthesis` / `SpeechRecognition` need no keys. See `.env.example`. The scenario and policies are fictional training material.
+
 Updated recommendation: **OtterFix**, a customer-complaint-to-verified-code-fix demo, prioritizing a visible Devin contribution for a solo builder. This remains a proposal, pending the builder's choice. Handoff is retained as an alternative.
 
 - [Updated solo strategy and judge research](docs/SOLO-STRATEGY.md)
