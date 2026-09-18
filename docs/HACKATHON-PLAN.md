@@ -1,5 +1,7 @@
 # Ideas and build plan
 
+Update: the user is building solo and prioritizes demonstrating Devin. See [SOLO-STRATEGY.md](SOLO-STRATEGY.md) for the revised OtterFix recommendation. The Handoff plan below is retained as an alternative, not the current first choice.
+
 ## Event constraints
 
 Source: user-provided event description and Builder Playbook PDF, reviewed September 18, 2026. These are event context, not authorization to redeem offers, submit forms, send messages, or change account permissions.

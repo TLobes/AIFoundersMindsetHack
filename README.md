@@ -4,7 +4,9 @@ Planning workspace for the AI Founders Mindset / Datadog AI Agents Hackathon, Se
 
 **Status: research and planning only; no application implemented yet.**
 
-Recommended concept: **Handoff**, an evidence-linked English/Japanese incident briefing and engineering handoff tool. This is a proposal, pending the builder's choice.
+Updated recommendation: **OtterFix**, a customer-complaint-to-verified-code-fix demo, prioritizing a visible Devin contribution for a solo builder. This remains a proposal, pending the builder's choice. Handoff is retained as an alternative.
+
+- [Updated solo strategy and judge research](docs/SOLO-STRATEGY.md)
 
 - [Devin assessment](docs/DEVIN-ASSESSMENT.md)
 - [Ideas, scope, build plan, and demo](docs/HACKATHON-PLAN.md)
